@@ -1,0 +1,24 @@
+server:
+  port: 8000
+
+mybatis:
+  mapper-locations: mapper/*Mapper.xml
+  type-aliases-package: com.hello.mybatistest.domain
+  configuration:
+    map-underscore-to-camel-case: true
+    use-generated-keys: true
+    jdbc-type-for-null: null
+
+spring:
+  profiles:
+    default: test
+  datasource:
+    hikari:
+      pool-name: hikari-rw-test
+      jdbc-url: jdbc:h2:mem:test;MODE=MYSQL
+      username: sa
+      password:
+  sql:
+    init:
+      schema-locations: classpath:db/schema.sql
+      mode: always
