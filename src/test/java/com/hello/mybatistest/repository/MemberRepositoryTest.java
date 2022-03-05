@@ -19,7 +19,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @Slf4j
 @Transactional
-@SpringBootTest(properties = "classpath:application-test.yml")
+@SpringBootTest
 @AutoConfigureMybatis
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 class MemberRepositoryTest {
