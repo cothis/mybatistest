@@ -1,2 +1,33 @@
 server:
   port: 8000
+
+mybatis:
+  mapper-locations: mapper/*Mapper.xml
+  type-aliases-package: com.hello.mybatistest.domain
+  configuration:
+    map-underscore-to-camel-case: true
+    use-generated-keys: true
+    jdbc-type-for-null: null
+
+spring:
+  profiles:
+    default: local
+  datasource:
+    hikari:
+      pool-name: hikari-rw
+      jdbc-url: jdbc:mysql://localhost:3306/mybatis
+      username: root
+      password: 1234
+  sql:
+    init:
+      schema-locations: classpath:db/schema.sql
+      data-locations: classpath:db/data.sql
+      mode: embedded
+---
+spring:
+  config:
+    activate:
+      on-profile: create
+  sql:
+    init:
+      mode: always

@@ -1,17 +1,16 @@
 package com.hello.mybatistest.domain;
 
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
-import org.apache.ibatis.type.Alias;
+import lombok.Data;
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 
-@Getter
-@RequiredArgsConstructor
-@Alias("Member")
+@Data
 public class Member {
 
-	private Long id;
+	private final Long id;
 	private String name;
+	private String nickName;
 	private BigDecimal amount;
+	private LocalDateTime regDate;
 }

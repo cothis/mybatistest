@@ -19,7 +19,8 @@ public class MemberController {
 
 	@GetMapping
 	public List<MemberDto> members() {
-		return memberService.findAll().stream()
+		return memberService.findAll()
+				.stream()
 				.map(MemberDto::new)
 				.collect(Collectors.toList());
 	}
