@@ -1,16 +1,27 @@
 package com.hello.mybatistest.repository;
 
-import com.hello.mybatistest.config.DataSourceConfig;
 import com.hello.mybatistest.domain.Member;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mybatis.spring.boot.autoconfigure.MybatisAutoConfiguration;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.ImportAutoConfiguration;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.context.ConfigurationPropertiesAutoConfiguration;
+import org.springframework.boot.autoconfigure.context.PropertyPlaceholderAutoConfiguration;
+import org.springframework.boot.autoconfigure.jdbc.JdbcTemplateAutoConfiguration;
+import org.springframework.boot.autoconfigure.sql.init.SqlInitializationAutoConfiguration;
+import org.springframework.boot.autoconfigure.transaction.TransactionAutoConfiguration;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
+import org.springframework.boot.test.context.SpringBootTestContextBootstrapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
+import org.springframework.test.context.BootstrapWith;
 import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.TestExecutionListeners;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
+import org.springframework.test.context.support.DependencyInjectionTestExecutionListener;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
@@ -22,11 +33,23 @@ import static org.assertj.core.api.Assertions.assertThat;
 @Slf4j
 @Transactional
 @ExtendWith(SpringExtension.class)
-@ContextConfiguration(classes = {DataSourceConfig.class, ContextConfig.class})
+@TestExecutionListeners(DependencyInjectionTestExecutionListener.class)
+@ImportAutoConfiguration(classes = {
+		ConfigurationPropertiesAutoConfiguration.class,
+		PropertyPlaceholderAutoConfiguration.class,
+		JdbcTemplateAutoConfiguration.class,
+		TransactionAutoConfiguration.class,
+		SqlInitializationAutoConfiguration.class,
+		MybatisAutoConfiguration.class
+})
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
+@BootstrapWith(SpringBootTestContextBootstrapper.class)
+@ContextConfiguration
 class PureMemberRepositoryTest {
 
-	// Todo 제발 살려줘요..
+	@SpringBootApplication
+	static class TestApplication {
+	}
 
 	@Autowired
 	MemberRepository memberRepository;
