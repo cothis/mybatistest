@@ -1,13 +1,16 @@
 package com.hello.mybatistest.repository;
 
+import com.hello.mybatistest.config.DataSourceConfig;
 import com.hello.mybatistest.domain.Member;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
-import org.mybatis.spring.boot.test.autoconfigure.MybatisTest;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
@@ -18,9 +21,12 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @Slf4j
 @Transactional
-@MybatisTest
+@ExtendWith(SpringExtension.class)
+@ContextConfiguration(classes = {DataSourceConfig.class, ContextConfig.class})
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
-class MemberRepositoryTest {
+class PureMemberRepositoryTest {
+
+	// Todo 제발 살려줘요..
 
 	@Autowired
 	MemberRepository memberRepository;

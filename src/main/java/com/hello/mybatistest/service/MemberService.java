@@ -7,6 +7,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.sql.DataSource;
 import java.util.List;
 
 @Service
@@ -16,8 +17,10 @@ import java.util.List;
 public class MemberService {
 
 	private final MemberRepository memberRepository;
+	private final DataSource dataSource;
 
 	public List<Member> findAll() {
+		log.info("dataSource = {} ", dataSource);
 		return memberRepository.findAll();
 	}
 }
